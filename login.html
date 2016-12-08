@@ -1,0 +1,113 @@
+<!-- NEEDED FUNCTIONS:
+	LOGIN
+		check if username exists
+			yes -> check if password is correct
+		Log in -> redirect to home.html
+	SIGNUP
+		check username is not taken, check password and reenter password is the same
+		signup -> close modal
+-->
+
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="webStyle.css">
+	<title> Group Expense Web App </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- google fonts -->
+	<link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Raleway">
+</head>
+<body>
+	<!-- LOG IN PAGE -->
+	<div class = "loginPage">
+		<div class="wrapper">
+			<header> <font color = "white"> Group Expense Web App </font></header> <br><br><br><br><br>
+			<main>	<center> <b>Finance Your Expenses With Your Friends </b><br>
+				<font size="5">Track where you're spending all your money. Pay and get your money back from friends. Keep your wallet fat. </font> <br><br>
+				Ready, Set, Finance <br> <br>
+					<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" id="login">Log in</button> 
+					<font size="2">or</font>
+					<button type="button" class="btn btn-info btn-lg" data-dismiss="modal" id="signup">Sign up</button></center>
+			</main>
+		</div> <!-- /.wrapper -->
+
+		<!-- MODALS -->
+		<div id= "loginModal" class="modal fade" tabindex="-1" role="dialog">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	      				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>
+						<h1><b><font color = "white"> Log in </font></b></h1>
+						</center>
+					</div> <!-- /.modal-header -->
+					<div class= "modal-body">
+						<label><b>Username</b></label><br>
+						<input class="form-control" type="text" placeholder="Enter Username" id="uname" style="width: 400px;" name="uname" required><br><br>
+
+						<label><b>Password</b></label><br>
+  						<input class="form-control" type="password" placeholder="Enter Password" id="psw" style="width: 400px;" name="psw" required>
+  						<br><br>
+  						<button type="button" class="btn btn-success btn-block" data-dismiss="modal" id="loginOK">Log in</button>
+
+					</div> <!-- /.modal-body -->
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div> <!-- /.modal-footer -->
+				</div> <!-- /.modal-content -->
+			</div> <!-- /.modal-dialog -->
+		</div> <!-- /.loginModal -->
+
+		<div id= "signupModal" class="modal fade" tabindex="-1" role="dialog">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	      				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>
+						<h1><b><font color = "white"> Sign Me Up! </font></b></h1>
+						</center>
+					</div> <!-- /.modal-header -->
+					<div class= "modal-body">
+						<label><b>First Name</b></label><br>
+						<input class="form-control" type="text" placeholder="Enter First Name" id="fname" style="width: 400px;" name="name" required><br><br>
+
+						<label><b>Last Name</b></label><br>
+						<input class="form-control" type="text" placeholder="Enter Last Name" id="lname" style="width: 400px;" name="name" required><br><br>
+
+						<label><b>Username</b></label><br>
+						<input class="form-control" type="text" placeholder="Enter Username" id="uname" style="width: 400px;" name="uname" required><br><br>
+
+						<label><b>Password</b></label><br>
+  						<input class="form-control" type="password" placeholder="Enter Password" id="psw" style="width: 400px;" name="psw" required> <br><br>
+
+  						<label><b>Re-enter Password</b></label><br>
+  						<input class="form-control" type="password" placeholder="Re-enter Password" id="psw2" style="width: 400px;" name="psw2" required>
+
+					</div> <!-- /.modal-body -->
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="signupOK">Sign Up</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div> <!-- /.modal-footer -->
+				</div> <!-- /.modal-content -->
+			</div> <!-- /.modal-dialog -->
+		</div> <!-- /.signupModal -->
+
+		<script src="website.js"></script>
+	</div> <!-- /.loginPage -->
+</body>
+
+
+
+
+
+
+
+
+
+

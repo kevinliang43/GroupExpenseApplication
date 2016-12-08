@@ -1,0 +1,78 @@
+/* Log in */
+.wrapper {
+	height: 100vh;
+	background-color: #FFFFFF;
+
+}
+
+header{
+  height: 75px;
+  background-color: #87CEEB;
+  font-family: 'Raleway', serif;
+  font-weight: bold;
+  font-size: 50px;
+  position:fixed;
+  top:0px;
+  width:100%;
+  z-index: 100;
+}
+
+main{
+  height: 100px;
+  font-family: 'Raleway', serif;
+  font-size: 40px;
+	background-color: #FFFFFF;
+}
+
+.modal-header {
+	background-color: #87CEFA;
+}
+
+.modal-footer {
+	background-color: #e9f6fb;
+}
+
+/* home page */
+#leftSide {
+	width: 20%;
+    height: 80%;
+    position: absolute;
+    padding: 30px 30px 50px 30px;
+
+    font-size: 30px;
+    color: black;
+    display: block;
+    transition: 0.2s;
+    margin: 0 0 10px 0;
+    cursor: pointer;
+}
+
+#leftSide div:hover { 
+	padding: 0 3px 0 5px;
+    background-color: #DCDCDC;
+}
+
+#rightSide {
+	width: 80%;
+    height: 80%;
+    position: absolute;
+    right: 20px;
+    box-shadow: -5px 0 5px -6px #333, 5px 0 5px -5px #333;
+    padding: 30px 30px 50px 30px;
+
+}
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 20px;
+}
+
+#expenses div:hover { 
+	padding: 0 3px 0 5px;
+    background-color: #DCDCDC;
+}

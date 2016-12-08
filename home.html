@@ -1,0 +1,398 @@
+<!-- NEEDED FUNCTIONS:
+	retrieve you owe total
+	retreive friends owe you total
+	retrieve 5 top expenses by date 
+	retrieve list of all invites
+	retrieve list of all groups
+
+-->
+<!-- TO DO:
+	sidenav
+		Home page - redirect to home page
+		Groups - add option -> modal -> name, group member names, send invites
+			individual groups -> direct to page
+		Friends (?? need)
+		Pending Invites - join group?
+			modal -> accept invite or decline, contains description and members
+	
+	clear page whenever new sidenav option is clicked & displays whatever is clicked
+	home page:	
+		name
+		you owe total
+		friends owe you total
+		list 5 recent expenses -> by date
+			type & amount & with who = only display
+	Each individual group:
+		add expense button
+			modal: Name of expense, ...
+		Name of group
+		members in group (can be pending)
+		optional: leave group
+		add member -> check if admin
+		each individual expense for group
+			type
+			date
+			name paid... $ paid/not paid -> paid highlight
+			name owes... $
+
+DELETE: remove expense
+Update: edit expense
+create: done, add expense
+read: done
+		
+-->
+
+
+
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="webStyle.css">
+	<title> Group Expense Web App </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- google fonts -->
+	<link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body>
+	<!--  HOME PAGE -->
+	<div id = "homePage">
+		<div class="wrapper">
+			<header> <font color = "white"> Group Expense Web App </font>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="logout">Log out</button> 
+					<button type="button" class="btn btn-success" id="editInfo">Edit Password</button> 
+			</header> <br><br><br><br>
+
+			<main>	
+
+				<div id="leftSide"> 
+					<div id="homeSite" onclick="showHome()"> 
+							Home
+					</div><br>
+					<div id="groupsSite">
+						<div id="groupCollapse" data-toggle="collapse" data-target="#gcollapse">Groups
+						<font size="3">
+						</div>
+						<button type="button" class="btn btn-link" id="add">+Add</button>
+						</font>
+						<div id="gcollapse" class = "collapse">
+							<font size="3">
+							<div id="groupName1" onclick="showigroup()">
+							INSERT GROUP NAMES
+							</div>
+							<div id="groupName2" onclick="showigroup()">
+							INSERT GROUP NAMES2
+							</div>
+						</font>
+						</div>
+					</div><br>
+					<div id="pInvitesSite"> 
+						<div id = "inviteCollapse" data-toggle="collapse" data-target="#pcollapse">
+							Pending Invites
+						</div>
+						<div id="pcollapse" class = "collapse">
+							<font size="3">
+							INSERT Pending Invites AND Accept/Decline Buttons
+							</font>
+						</div>
+					</div> <!-- /.pInvitesSite -->
+				</div> <!-- /.leftSide -->
+
+				<div id="rightSide">
+					<!-- HOME -->
+					<div id="homeDisplay"  style="display:none;"> 
+						NAME OF USER<br>
+						<font size="4">
+						You owe: $ You Owe Total<br>
+						Friends owe you: $ Friends Owe Total<br><br>
+						Recent Expenses:<br>
+						<ol>
+ 						 	<li>Expense 1</li>
+  							<li>Expense 2</li>
+  							<li>Expense 3</li>
+  							<li>Expense 4</li>
+  							<li>Expense 5</li>
+						</ol>
+						</font>
+					</div> <!-- /.homeDisplay -->
+
+					<!-- Individual Group -->
+					<div id="igroupDisplay"  style="display:none;"> 
+						GROUP NAME 
+						<button type="button" class="btn btn-warning" id="addExpense">Add Expense</button> 
+						<button type="button" class="btn btn-secondary" id="removeExpense">Remove Expense</button>
+						<br> 
+						<font size="4">
+						Members in group: SOME LIST OF MEMBERS
+						</font>
+						<div class="table-responsive">          
+						 	 <table class="table">
+						    <thead>
+						      <tr>
+						        <th>How much you owe</th>
+						        <th>How much you are owed</th>
+						        <th>Balance</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr>
+						        <td>$ SOME VALUE</td>
+						        <td>$ SOME VALUE</td>
+						        <td>$ SOME VALUE</td>
+						      </tr>
+						    </tbody>
+						  </table>
+						</div> <!-- /.table-responsive -->
+						<font size="5">
+						<hr>
+						<div id="expenses">
+							<div id="expense1" data-toggle="collapse" data-target="#expense1collapse">
+							Expense1:SOME ID <p align="right">You owe: $ SOME VALUE</p>
+							</div>
+							<div id="expense1collapse" class = "collapse">
+								<font size="3">
+								Date <br>
+								Description<br>
+								Owe To Name<hr>
+								MEMBER1 <p align="right"> Owe: $ SOME VALUE
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-info">Paid</button>
+								&nbsp;
+								<button type="button" class="btn btn-danger">Not Paid</button>
+								</p>
+								<hr>
+								MEMBER2 <p align="right"> Owe: $ SOME VALUE
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-info">Paid</button>
+								&nbsp;
+								<button type="button" class="btn btn-danger">Not Paid</button>
+								</p>
+								<hr>
+								MEMBER3 <p align="right"> Owe: $ SOME VALUE
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-info">Paid</button>
+								&nbsp;
+								<button type="button" class="btn btn-danger">Not Paid</button>
+								</p>
+								</font>
+							</div>
+							<hr>
+							<div id="expense2">
+							Expense2 <p align="right">You are owed: $ SOME VALUE</p>
+						</div>
+					</font>
+					</div> <!-- /.igroupDisplay -->
+				</div> <!-- /.rightSide -->
+
+			</main>
+
+		</div> <!-- /.wrapper -->
+
+		<!-- MODALS -->
+		<div id= "addModal" class="modal fade" tabindex="-1" role="dialog">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	      				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>
+						<h1><b><font color = "white"> Add Group </font></b></h1>
+						</center>
+					</div> <!-- /.modal-header -->
+					<div class= "modal-body">
+						<label><b>Group Name</b></label><br>
+						<input class="form-control" type="text" placeholder="Enter Group Name" id="gname" style="width: 400px;" name="gname" required><br><br>
+
+						<label><b>Group Members</b></label><br>
+
+  						<div class="controls"> 
+		                <form role="form" autocomplete="off">
+		                    <div class="entry input-group col-xs-3">
+		                        <input class="form-control" name="fields[]" style="width: 400px;" type="text" id="groupMemberName" placeholder="Enter Member Username" required>
+		                    	<span class="input-group-btn">
+		                            <button class="btn btn-success btn-add" type="button">
+		                                <span class="glyphicon glyphicon-plus"></span>
+		                            </button>
+		                        </span>
+		                    </div>
+		                </form>
+			            <br>
+			            <small>Press <span class="glyphicon glyphicon-plus gs"></span> to add more members</small>
+			            </div>
+
+					</div> <!-- /.modal-body -->
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="addOK">Save</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div> <!-- /.modal-footer -->
+				</div> <!-- /.modal-content -->
+			</div> <!-- /.modal-dialog -->
+		</div> <!-- /.addModal -->
+
+		<div id= "addExpenseModal" class="modal fade" tabindex="-1" role="dialog">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	      				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>
+						<h1><b><font color = "white"> Add Expense </font></b></h1>
+						</center>
+					</div> <!-- /.modal-header -->
+					<div class= "modal-body">
+						<label><b>Expense Name</b></label><br>
+						<input class="form-control" type="text" placeholder="Enter Expense Name" id="ename" style="width: 400px;" name="ename" required><br>
+						<label><b>Date</b></label><br>
+							  <div class="date">
+							  	<select name="Year" id="year">
+							    	<option value="2012">2018</option>
+							    	<option value="2012">2017</option>
+							      <option value="2011">2016</option>
+							      <option value="2010">2015</option>
+							      <option value="2009">2014</option>
+							      <option value="2008">2013</option>
+							      <option value="2012">2012</option>
+							      <option value="2011">2011</option>
+							      <option value="2010">2010</option>
+							      <option value="2009">2009</option>
+							      <option value="2008">2008</option>
+							      <option value="2007">2007</option>
+							      <option value="2006">2006</option>
+							      <option value="2005">2005</option>
+							      <option value="2004">2004</option>
+							      <option value="2003">2003</option>
+							      <option value="2002">2002</option>
+							      <option value="2001">2001</option>
+							      <option value="2000">2000</option>
+							    </select>
+							  	<select name="Month" id="month">
+							      <option value="01">January</option>
+							      <option value="02">February</option>
+							      <option value="03">March</option>
+							      <option value="04">April</option>
+							      <option value="05">May</option>
+							      <option value="06">June</option>
+							      <option value="07">July</option>
+							      <option value="08">August</option>
+							      <option value="09">September</option>
+							      <option value="10">October</option>
+							      <option value="11">November</option>
+							      <option value="12">December</option>
+							    </select>
+							    <select name="Day" id="day">
+							      <option value="01">01</option>
+							      <option value="02">02</option>
+							      <option value="03">03</option>
+							      <option value="04">04</option>
+							      <option value="05">05</option>
+							      <option value="06">06</option>
+							      <option value="07">07</option>
+							      <option value="08">08</option>
+							      <option value="09">09</option>
+							      <option value="10">10</option>
+							      <option value="11">11</option>
+							      <option value="12">12</option>
+							      <option value="13">13</option>
+							      <option value="14">14</option>
+							      <option value="15">15</option>
+							      <option value="16">16</option>
+							      <option value="17">17</option>
+							      <option value="18">18</option>
+							      <option value="19">19</option>
+							      <option value="20">20</option>
+							      <option value="21">21</option>
+							      <option value="22">22</option>
+							      <option value="23">23</option>
+							      <option value="24">24</option>
+							      <option value="25">25</option>
+							      <option value="26">26</option>
+							      <option value="27">27</option>
+							      <option value="28">28</option>
+							      <option value="29">29</option>
+							      <option value="30">30</option>
+							      <option value="31">31</option>
+							    </select>
+							  </div> <!-- /.date -->
+							  <br>
+					<label><b>Amount</b></label><br>
+						<input class="form-control" type="number" placeholder="Enter Amount" id="aname" style="width: 400px;" name="aname" required><br>
+						<label><b>Select Members Involved</b></label><br>
+						<label class="checkbox-inline"><input type="checkbox" value="member1">Name1</label>
+						<label class="checkbox-inline"><input type="checkbox" value="member2">Name2</label>
+						<label class="checkbox-inline"><input type="checkbox" value="member3">Name3</label>
+						 <br><br>
+						<label><b>Split Equally?</b></label><br>
+						<label class="radio-inline"><input type="radio" name="optradio" id="yes">Yes</label>
+						<div id="expense1" data-toggle="collapse" data-target="#amountowedcollapse">
+						<label class="radio-inline"><input type="radio" name="optradio" id="no">No</label> 
+						</div>
+						<br><br>
+						<div id="amountowedcollapse" class = "collapse">
+						<label ><b>Amount Owed By Each</b></label><br>
+						<!-- list of name with text box, appear if no chosen --> 
+						Member1:&nbsp;<input class="form-control" type="number" placeholder="Enter Amount" id="member1amount" style="width: 400px;" name="member1amount" required><br><br>
+						</div>
+						
+					</div> <!-- /.modal-body -->
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="addOK2">Add</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div> <!-- /.modal-footer -->
+				</div> <!-- /.modal-content -->
+			</div> <!-- /.modal-dialog -->
+		</div> <!-- /.addExpenseModal -->
+
+		<div id= "removeExpenseModal" class="modal fade" tabindex="-1" role="dialog">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	      				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>
+						<h1><b><font color = "white"> Remove Expense </font></b></h1>
+						</center>
+					</div> <!-- /.modal-header -->
+					<div class= "modal-body">
+						<label><b>Expense To Be Removed</b></label><br>
+						<input class="form-control" type="number" placeholder="Enter Expense ID" id="ername" style="width: 400px;" name="ername" required><br><br>
+					</div> <!-- /.modal-body -->
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="remove">Remove</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div> <!-- /.modal-footer -->
+				</div> <!-- /.modal-content -->
+			</div> <!-- /.modal-dialog -->
+		</div> <!-- /.removeExpenseModal -->
+
+		<div id= "editInfoModal" class="modal fade" tabindex="-1" role="dialog">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	      				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>
+						<h1><b><font color = "white"> Edit Password </font></b></h1>
+						</center>
+					</div> <!-- /.modal-header -->
+					<div class= "modal-body">
+						<label><b>Old Password</b></label><br>
+						<input class="form-control" type="password" placeholder="Enter Password" id="oldp" style="width: 400px;" name="oldp" required><br><br>
+						<label><b>New Password</b></label><br>
+						<input class="form-control" type="password" placeholder="Enter New Password" id="newp" style="width: 400px;" name="oldp" required><br><br>
+						<label><b>Re-enter New Password</b></label><br>
+						<input class="form-control" type="password" placeholder="Enter New Password" id="newp2" style="width: 400px;" name="oldp" required><br><br>
+					</div> <!-- /.modal-body -->
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="remove">Update</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div> <!-- /.modal-footer -->
+				</div> <!-- /.modal-content -->
+			</div> <!-- /.modal-dialog -->
+		</div> <!-- /.editInfoModal -->
+
+
+		<script src="website.js"></script>
+	</div> <!-- /.homePage -->
+</body>
